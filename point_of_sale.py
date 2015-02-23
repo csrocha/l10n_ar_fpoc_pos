@@ -24,11 +24,12 @@ class pos_session(osv.osv):
 
     def wkf_action_close(self, cr, uid, ids, context=None):
         r = super(pos_session, self).wkf_action_close(cr, uid, ids, context=context)
-        # Cierre de caja, Informe Z
+        # Cierre de caja, Informe Z --> Informe X
         for sess in [ s for s in self.browse(cr, uid, ids)
                      if s.config_id.journal_id.use_fiscal_printer and
                         s.config_id.journal_id.fiscal_printer_id ]:
-            fp_r = sess.config_id.journal_id.close_fiscal_journal()
+            #fp_r = sess.config_id.journal_id.close_fiscal_journal()
+            fp_r = sess.config_id.journal_id.shift_change()
             pass
         return r
 pos_session()
